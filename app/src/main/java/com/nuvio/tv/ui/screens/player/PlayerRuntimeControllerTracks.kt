@@ -1020,8 +1020,12 @@ internal fun PlayerRuntimeController.applyPersistedTrackPreference(
                         message = "index=$index alreadySelected=$alreadySelected " +
                                 "matched=${subtitleTracks.getOrNull(index)?.let { describeTrackInfoForRestoreLog(it) }}"
                     )
-                    if (!alreadySelected) {
-                        Log.d(PlayerRuntimeController.TAG, "TRACK_PREF restore: internal subtitle index=$index (re-applying)")
+                    if (!alreadySelected || !usingSwitchPending) {
+                        Log.d(
+                            PlayerRuntimeController.TAG,
+                            "TRACK_PREF restore: internal subtitle index=$index " +
+                                    "(re-applying, alreadySelected=$alreadySelected)"
+                        )
                         autoSubtitleSelected = true
                         selectSubtitleTrack(index)
                         updatedSubtitleIndex = index
