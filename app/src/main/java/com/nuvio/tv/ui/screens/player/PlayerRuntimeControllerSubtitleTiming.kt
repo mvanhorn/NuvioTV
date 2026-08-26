@@ -14,13 +14,13 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.util.concurrent.TimeUnit
 
-private val subtitleAutoSyncHttpClient: OkHttpClient by lazy {
+internal val subtitleAutoSyncHttpClient: OkHttpClient by lazy {
     OkHttpClient.Builder()
         .dns(IPv4FirstDns())
         // Sidecar + auto-sync both use this client; keep timeouts generous for flaky hosts.
         .connectTimeout(12_000, TimeUnit.MILLISECONDS)
-        .readTimeout(15_000, TimeUnit.MILLISECONDS)
-        .callTimeout(25_000, TimeUnit.MILLISECONDS)
+        .readTimeout(60_000, TimeUnit.MILLISECONDS)
+        .callTimeout(60_000, TimeUnit.MILLISECONDS)
         .retryOnConnectionFailure(true)
         .followRedirects(true)
         .followSslRedirects(true)
